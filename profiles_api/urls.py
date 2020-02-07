@@ -4,9 +4,11 @@ from profiles_api import views
 
 router = DefaultRouter()
 router.register('hello-viewsets', views.HelloViewSets, base_name='hello-viewsets')
+router.register('profile', views.UserPofileViewSets)
 
 
 urlpatterns = [
 	path('',views.HelloApiView.as_view()), 
-	path('view-sets/',include(router.urls))
+	path('view-sets/',include(router.urls)),
+
 ]	
