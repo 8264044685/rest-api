@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import BaseUserManager
+from django.conf import settings
+
 
 # You can create your model here
 
@@ -61,3 +63,15 @@ class UserProfile(AbstractBaseUser):
     def has_module_perms(self, app_label):
         """Does this user have permission to view this app? (ALWAYS YES FOR SIMPLICITY)"""
         return True
+
+
+class ProfileFeedItem(models.Model):
+    """Profile status update"""
+
+    user_profile = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    status_text = models.CharField(max_length=255)
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        """Return the models as a string"""
+        return self.status_text
